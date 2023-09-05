@@ -17,7 +17,15 @@ async function getAll(req, res, next) {
         if (req.query.phone !== undefined) {
             filter.phone = req.query.phone
         }
-        const docs = await Contact.find(filter).exec();
+        let limit = 0;
+        let skip = 0;
+        if (req.query.limit > 0) {
+            limit = req.query.limit
+        }
+        if (req.query.page > 0) {
+            skip = limit * (req.query.page - 1)
+        }
+        const docs = await Contact.find(filter).skip(skip).limit(limit).exec();
         res.status(200).send(docs);
     } catch (err) {
         next(err)
