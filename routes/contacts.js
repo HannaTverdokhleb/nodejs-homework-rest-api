@@ -14,9 +14,9 @@ const jsonParser = express.json()
 
 router.get("/", auth, getAll);
 router.get("/:id", validate(Schemas.idSchemaGlobal), getById);
-router.post("/", jsonParser, validate(Schemas.contactSchemaGlobal), create);
-router.delete("/:id", validate(Schemas.idSchemaGlobal), remove);
-router.put("/:id", jsonParser, validate(Schemas.idContactSchemaGlobal), update);
-router.patch("/:id", jsonParser, validate(Schemas.idStatusSchemaGlobal), updateStatus);
+router.post("/", jsonParser, auth, validate(Schemas.contactSchemaGlobal), create);
+router.delete("/:id", auth, validate(Schemas.idSchemaGlobal), remove);
+router.put("/:id", jsonParser, auth, validate(Schemas.idContactSchemaGlobal), update);
+router.patch("/:id", jsonParser, auth, validate(Schemas.idStatusSchemaGlobal), updateStatus);
 
 module.exports = router;

@@ -10,7 +10,7 @@ async function update(req, res, next) {
         favorite: req.body.favorite
     };
     try {
-        const doc = await Contact.findByIdAndUpdate(id, contact, {new: true}).exec();
+        const doc = await Contact.findOneAndUpdate({ _id: id, owner: req.user.id }, contact, {new: true}).exec();
         if (doc === null) {
             res.status(404).send({message: `Contact with id ${id} is not found`});
         } else {
