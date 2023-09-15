@@ -7,7 +7,7 @@ function auth(req, res, next) {
     const authHeader = req.headers.authorization || '';
     const [bearer, token] = authHeader.split(" ", 2);
 
-    if (bearer !== 'Bearer') {
+    if (!token || bearer !== 'Bearer') {
         return res.status(401).send({message: "Not authorized"})
     }
 
