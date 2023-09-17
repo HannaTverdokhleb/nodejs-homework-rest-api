@@ -3,7 +3,7 @@ const express = require("express");
 const schema = require('../schemas/user');
 const validate = require('../middleware/validation');
 
-const { register, login, logout, current } = require("../controllers/auth/index");
+const { register, login, logout, current, verify, secondVerify } = require("../controllers/auth/index");
 const uploadAvatar = require("../controllers/user/avatars");
 const router = express.Router();
 const auth = require("../middleware/auth");
@@ -22,5 +22,9 @@ router.post("/logout", auth, logout);
 router.get("/current", auth, current);
 
 router.patch("/avatars", auth, upload.single("avatar"), uploadAvatar);
+
+router.get("/verify/:verificationToken", verify);
+
+router.post("/verify", jsonParser, validate(schema.emailSchemaGlobal), secondVerify);
 
 module.exports = router;
