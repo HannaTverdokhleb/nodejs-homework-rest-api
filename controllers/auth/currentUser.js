@@ -7,10 +7,11 @@ async function current(req, res, next) {
     
     try {
         const currentUser = await User.findOne({token: ownToken});
-        const {email, subscription} = currentUser;
+        const {email, subscription, avatarURL} = currentUser;
         res.status(200).send({
             "email": email,
-            "subscription": subscription
+            "subscription": subscription,
+            "avatarURL": avatarURL,
           });
 
     } catch(err) {
